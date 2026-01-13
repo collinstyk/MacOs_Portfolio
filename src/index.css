@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+@import "tailwindcss";
+
+html,
+body {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+  background-image: url("/images/crown-wallpaper.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@theme {
+  --font-georama: "Georama" sans-serif;
+  --font-roboto: "Roboto Mono" monospace;
+  --breakpoint-3xl: 1920px;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility col-center {
+  @apply flex flex-col items-center justify-center;
+}
+
+@utility abs-center {
+  @apply absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2;
+}
+
+@layer base {
+  main {
+    @apply w-dvw h-dvh overflow-hidden;
+  }
+
+  nav {
+    @apply bg-white/50 backdrop-blur-3xl select-none py-2 px-5 flex justify-between items-center;
+
+    div {
+      @apply flex items-center gap-5;
+    }
+
+    ul {
+      @apply flex gap-5 items-center;
+
+      p {
+        @apply text-sm cursor-pointer hover:underline transition-all;
+      }
+    }
+
+    time {
+      @apply text-sm font-medium text-black;
+    }
+  }
+}
+
+@layer components {
+  .icon {
+    @apply hover:bg-gray-200 p-1  hover:cursor-default rounded;
+  }
+}
