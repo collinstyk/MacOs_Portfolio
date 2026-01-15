@@ -96,10 +96,30 @@ body {
     @apply abs-center text-gray-200 select-none col-center;
 
     .small-screen {
-      @apply sm:hidden bg-red-300/20 rounded p-3 absolute m-7 top-10 absolute backdrop-blur-lg;
+      @apply sm:hidden bg-red-300/20 rounded p-3 absolute m-7 top-10 backdrop-blur-lg;
 
       p {
-        @apply text-base flex-1 text-gray-400 font-roboto flex-1 text-center;
+        @apply text-base text-gray-400 font-roboto flex-1 text-center;
+      }
+    }
+  }
+
+  #dock {
+    @apply absolute left-1/2 -translate-x-1/2 bottom-5 select-none max-sm:hidden z-50;
+
+    .dock-container {
+      @apply bg-white/20 backdrop-blur-md justify-between rounded-2xl p-1.5 flex items-end gap-1.5;
+    }
+
+    .tooltip {
+      @apply !py-1 !px-3 !w-fit !text-center !text-xs !rounded-md !bg-blue-200 !text-blue-900 !shadow-2xl;
+    }
+
+    .dock-icon {
+      @apply size-14 3xl:size-20 cursor-pointer;
+
+      img {
+        @apply object-cover object-center;
       }
     }
   }
