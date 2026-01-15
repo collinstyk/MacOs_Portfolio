@@ -90,7 +90,7 @@ npm run dev
 
 The app will be available at:
 
-```
+```text
 http://localhost:5173
 ```
 

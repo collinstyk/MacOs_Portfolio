@@ -32,13 +32,13 @@ const renderText: RenderTextType = (
 type SetupTextHoverType = (
   container: HTMLElement,
   type: "subTitle" | "title"
-) => void;
+) => () => void;
 
 const setupTextHover: SetupTextHoverType = (
   container: HTMLElement,
   type: "subTitle" | "title"
 ) => {
-  if (!container) return;
+  if (!container) return () => {};
 
   const letters = container.querySelectorAll("span");
   const { min, max, default: base } = FONT_WEIGHTS[type];
@@ -82,20 +82,23 @@ const setupTextHover: SetupTextHoverType = (
 };
 
 const Welcome = () => {
-  const titleRef = useRef(null);
-  const subTitleRef = useRef(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subTitleRef = useRef<HTMLParagraphElement>(null);
 
   useGSAP(() => {
-    const titleCleanup = () => {
-      if (titleRef.current) setupTextHover(titleRef.current, "title");
-    };
-    const subTitleCleanup = () => {
-      if (subTitleRef.current) setupTextHover(subTitleRef.current, "subTitle");
-    };
+    let titleCleanup: (() => void) | undefined;
+    let subTitleCleanup: (() => void) | undefined;
+
+    if (titleRef.current) {
+      titleCleanup = setupTextHover(titleRef.current, "title");
+    }
+
+    if (subTitleRef.current)
+      subTitleCleanup = setupTextHover(subTitleRef.current, "subTitle");
 
     return () => {
-      titleCleanup();
-      subTitleCleanup();
+      titleCleanup?.();
+      subTitleCleanup?.();
     };
   }, []);
 
