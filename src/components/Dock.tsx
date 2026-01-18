@@ -4,8 +4,10 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 import { DOCK_APPS } from "@constants";
+import useWindowStore, { type WindowKey } from "@store/window";
 
 const Dock = () => {
+  const { windows, openWindow, closeWindow, focusWindow } = useWindowStore();
   const dockRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -46,7 +48,7 @@ const Dock = () => {
           y: 0,
           ease: "power1.out",
           duration: 0.3,
-        })
+        }),
       );
 
     dock.addEventListener("mousemove", handleMouseMove);
@@ -58,8 +60,19 @@ const Dock = () => {
     };
   }, []);
 
-  const toggleApp = (app: { id: string; canOpen: boolean }) => {
-    // TODO Implement Open Window Logic
+  const toggleApp = (app: { id: WindowKey; canOpen: boolean }) => {
+    if (!app.canOpen) return;
+
+    const window = windows[app.id];
+
+    if (!window) {
+      console.error(`Window not found for app: ${app.id}`);
+      return;
+    }
+
+    if (window.isOpen) {
+      closeWindow(app.id);
+    } else openWindow(app.id);
   };
 
   return (
@@ -76,7 +89,7 @@ const Dock = () => {
               data-tooltip-place="top"
               data-tooltip-delay-show={150}
               disabled={!canOpen}
-              onClick={() => toggleApp({ id, canOpen })}
+              onClick={() => toggleApp({ id: id as WindowKey, canOpen })}
             >
               <img
                 src={`/images/${icon}`}
