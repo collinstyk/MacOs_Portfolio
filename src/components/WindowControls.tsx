@@ -3,10 +3,10 @@ import Window from "@windows/Window";
 const WindowControls = () => {
   return (
     <div id="window-controls">
-      <button className="maximize" />
-      <button className="minimize" />
+      <button className="maximize" aria-label="Maximize window" />
+      <button className="minimize" aria-label="Minimize window" />
       <Window.Close>
-        <button className="close" />
+        <button className="close" aria-label="Close window" />
       </Window.Close>
     </div>
   );
