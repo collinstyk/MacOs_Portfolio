@@ -72,7 +72,10 @@ const useLocationStore = create<LocationState>()(
         state.activeLocation = location;
       }),
 
-    resetActiveLocation: () => set((state) => (state.activeLocation = null)),
+    resetActiveLocation: () =>
+      set((state) => {
+        state.activeLocation = null;
+      }),
   })),
 );
 

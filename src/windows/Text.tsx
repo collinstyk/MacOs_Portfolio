@@ -26,7 +26,7 @@ const Text = () => {
               <h3 className="font-semibold  text-black">{data.subtitle}</h3>
             )}
 
-            {data?.description.map((item) => (
+            {data?.description?.map((item) => (
               <p key={item} className="text-sm">
                 {item}
               </p>
